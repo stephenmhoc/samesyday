@@ -1,12 +1,11 @@
-import { buildCalendarFile, buildStory } from "./story.20261101.js";
+import { buildCalendarFile, buildStory } from "./story.20261102.js";
 
 const THEMES = {
   blank: { background: "#f6efe0", ink: "#1b1712" },
   before: { background: "#ff7a45", ink: "#1b1712" },
   now: { background: "#ffc93c", ink: "#1b1712" },
   passed: { background: "#2437c8", ink: "#fff8ea" },
-  unlikely: { background: "#a6e4c4", ink: "#1b1712" },
-  gone: { background: "#2c2433", ink: "#fff8ea" }
+  unlikely: { background: "#a6e4c4", ink: "#1b1712" }
 };
 
 const SITE_LABEL = "samesyday.merimerimeri.com";
@@ -17,10 +16,6 @@ const species = document.getElementById("species");
 const petName = document.getElementById("pet-name");
 const petAge = document.getElementById("pet-age");
 const humanAge = document.getElementById("human-age");
-const goneToggle = document.getElementById("gone-toggle");
-const goneFields = document.getElementById("gone-fields");
-const goneYear = document.getElementById("gone-year");
-const agePrefix = document.getElementById("age-prefix");
 const headline = document.getElementById("headline");
 const detail = document.getElementById("detail");
 const actions = document.getElementById("actions");
@@ -37,19 +32,15 @@ function numberIn(input, min, max) {
 }
 
 function readInputs() {
-  const isGone = !goneFields.hidden;
-  const currentYear = new Date().getFullYear();
   const pet = numberIn(petAge, 0, 40);
   const human = numberIn(humanAge, 1, 120);
-  const year = isGone ? numberIn(goneYear, 1950, currentYear) : null;
 
-  if (pet === null || human === null || (isGone && year === null)) return null;
+  if (pet === null || human === null) return null;
   return {
     name: petName.value,
     species: species.value,
     petAge: pet,
-    humanAge: human,
-    goneYear: isGone ? Math.trunc(year) : null
+    humanAge: human
   };
 }
 
@@ -65,7 +56,7 @@ function render() {
 
   if (!story) {
     applyTheme("blank");
-    headline.textContent = goneFields.hidden ? "How old are you both?" : "When did they die?";
+    headline.textContent = "How old are you both?";
     detail.textContent = "";
     actions.hidden = true;
     return;
@@ -76,21 +67,6 @@ function render() {
   detail.textContent = story.detail;
   actions.hidden = false;
   calendarButton.hidden = !story.event;
-  shareButton.textContent = story.state === "gone" ? "Save the card" : "Share the card";
-}
-
-function setGone(isGone) {
-  goneFields.hidden = !isGone;
-  goneToggle.textContent = isGone ? "Never mind" : "If your pet has died";
-  goneToggle.setAttribute("aria-expanded", String(isGone));
-  agePrefix.textContent = isGone ? "lived to about" : "is about";
-  if (isGone) {
-    goneYear.max = String(new Date().getFullYear());
-    goneYear.focus();
-  } else {
-    goneYear.value = "";
-  }
-  render();
 }
 
 function saveFile(blob, filename) {
@@ -204,7 +180,6 @@ async function shareCard() {
 
 form.addEventListener("input", render);
 form.addEventListener("submit", (event) => event.preventDefault());
-goneToggle.addEventListener("click", () => setGone(goneFields.hidden));
 calendarButton.addEventListener("click", () => {
   if (!story?.event) return;
   saveFile(new Blob([buildCalendarFile(story.event)], { type: "text/calendar" }), `${fileStem()}-samesy-day.ics`);

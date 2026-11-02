@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { buildCalendarFile, buildStory } from "../public/assets/story.20261101.js";
+import { buildCalendarFile, buildStory } from "../public/assets/story.20261102.js";
 
 const today = new Date(Date.UTC(2026, 10, 1));
 
@@ -48,24 +48,11 @@ test("an unnamed pet still reads correctly", () => {
   assert.match(result.detail, /After that, your cat is the grown-up\.$/);
 });
 
-test("a pet who died after catching up went on ahead", () => {
-  const result = story({ petAge: 12, humanAge: 50, goneYear: 2024 });
-  assert.equal(result.state, "gone");
-  assert.match(result.headline, /^Olive caught up with you in \d{4}, then went on ahead\.$/);
-});
-
-test("a pet who died before catching up stayed the kid", () => {
-  const result = story({ petAge: 2, humanAge: 60, goneYear: 2024 });
-  assert.equal(result.state, "gone");
-  assert.equal(result.headline, "Olive never had to catch up.");
-});
-
 test("stories never guess a pet's pronouns", () => {
   const inputs = [
     { petAge: 1, humanAge: 30 },
     { petAge: 8, humanAge: 34 },
-    { species: "cat", petAge: 0, humanAge: 70 },
-    { petAge: 12, humanAge: 50, goneYear: 2024 }
+    { species: "cat", petAge: 0, humanAge: 70 }
   ];
   for (const input of inputs) {
     const { headline, detail } = story(input);

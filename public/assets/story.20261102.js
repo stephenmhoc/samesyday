@@ -39,36 +39,8 @@ function names(name, species) {
   };
 }
 
-function goneStory({ pet, species, petAge, humanAge, goneYear, today }) {
-  const midYear = new Date(Date.UTC(goneYear, 6, 1));
-  const goneDate = midYear > today ? today : midYear;
-  const result = calculateSamesyDay({
-    humanBirthday: yearsBefore(today, humanAge),
-    petBirthday: yearsBefore(goneDate, petAge),
-    species,
-    dogSize: DOG_SIZE,
-    today: goneDate
-  });
-
-  if (result.status === "today") {
-    return { state: "gone", headline: `${pet.subject} caught up with you right at the end.`, detail: "" };
-  }
-  if (result.status === "passed" && result.target) {
-    const year = result.target.date.getUTCFullYear();
-    return { state: "gone", headline: `${pet.subject} caught up with you in ${year}, then went on ahead.`, detail: "" };
-  }
-  if (result.status === "passed") {
-    return { state: "gone", headline: `${pet.subject} was always the older one.`, detail: "" };
-  }
-  return { state: "gone", headline: `${pet.subject} never had to catch up.`, detail: `${pet.subject} got to stay the kid.` };
-}
-
-export function buildStory({ name = "", species, petAge, humanAge, goneYear = null, today = todayUtc() }) {
+export function buildStory({ name = "", species, petAge, humanAge, today = todayUtc() }) {
   const pet = names(name, species);
-
-  if (goneYear !== null) {
-    return goneStory({ pet, species, petAge, humanAge, goneYear, today });
-  }
 
   const humanBirthday = yearsBefore(today, humanAge);
   const petBirthday = yearsBefore(today, petAge);

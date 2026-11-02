@@ -12,7 +12,6 @@
 :root[data-state="now"] { --background: #ffc93c; }
 :root[data-state="passed"] { --background: #2437c8; --ink: #fff8ea; }
 :root[data-state="unlikely"] { --background: #a6e4c4; }
-:root[data-state="gone"] { --background: #2c2433; --ink: #fff8ea; }
 
 html {
   background: var(--background);
@@ -100,30 +99,15 @@ main {
 
 .name-input { width: 7.5ch; }
 .age-input { width: 3.5ch; text-align: center; }
-.year-input { width: 5ch; text-align: center; }
 
 .age-input::-webkit-inner-spin-button,
-.age-input::-webkit-outer-spin-button,
-.year-input::-webkit-inner-spin-button,
-.year-input::-webkit-outer-spin-button {
+.age-input::-webkit-outer-spin-button {
   margin: 0;
   appearance: none;
 }
 
-.age-input,
-.year-input {
+.age-input {
   appearance: textfield;
-}
-
-#gone-fields {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.35rem 0.55rem;
-}
-
-#gone-fields[hidden] {
-  display: none;
 }
 
 .result {
@@ -190,8 +174,7 @@ footer {
   line-height: 1.5;
 }
 
-footer a,
-.quiet {
+footer a {
   text-decoration: underline;
   text-underline-offset: 0.2em;
   cursor: pointer;

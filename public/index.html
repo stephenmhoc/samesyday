@@ -23,8 +23,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=20261101-older-than-you">
-    <script type="module" src="assets/app.20261101.js"></script>
+    <link rel="stylesheet" href="assets/styles.css?v=20261102-older-than-you">
+    <script type="module" src="assets/app.20261102.js"></script>
   </head>
   <body>
     <div class="page">
@@ -47,7 +47,7 @@
             <span class="sr-only">Pet's name</span>
             <input id="pet-name" class="name-input" name="petName" type="text" placeholder="name" maxlength="24">
           </label>
-          <span id="age-prefix">is about</span>
+          <span>is about</span>
           <label>
             <span class="sr-only">Pet's age in years</span>
             <input id="pet-age" class="age-input" name="petAge" type="number" inputmode="decimal" min="0" max="40" step="0.5" value="3">
@@ -57,13 +57,6 @@
             <span class="sr-only">Your age in years</span>
             <input id="human-age" class="age-input" name="humanAge" type="number" inputmode="numeric" min="1" max="120" step="1" value="34">
           </label>
-          <span id="gone-fields" hidden>
-            <span>They died in</span>
-            <label>
-              <span class="sr-only">Year your pet died</span>
-              <input id="gone-year" class="year-input" name="goneYear" type="number" inputmode="numeric" min="1950" step="1" placeholder="year">
-            </label>
-          </span>
         </form>
 
         <section class="result" aria-live="polite" aria-atomic="true">
@@ -79,11 +72,7 @@
 
       <footer>
         <p>Based on the usual 7-to-1 folklore, not science. What you type stays in your browser.</p>
-        <p>
-          <button id="gone-toggle" class="quiet" type="button" aria-expanded="false" aria-controls="gone-fields">If your pet has died</button>
-          <span aria-hidden="true">·</span>
-          Made by <a href="https://merimerimeri.com/">MeriMeriMeri Software</a>
-        </p>
+        <p>Made by <a href="https://merimerimeri.com/">MeriMeriMeri Software</a></p>
       </footer>
     </div>
   </body>

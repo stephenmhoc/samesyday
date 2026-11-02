@@ -1,6 +1,6 @@
 # Samesy Day
 
-A one-page static site that calculates the next day a person and a cat or dog are the same age, using pet human-equivalent age curves instead of matching birthdays or calendar dates.
+A one-page static site that tells you when your dog or cat becomes older than you, using the usual pet-to-human age curves. Everything runs in the browser.
 
 ## Development
 
@@ -12,7 +12,7 @@ python3 -m http.server 4173 --directory public
 
 Open `http://localhost:4173`.
 
-`npm test` runs the calculator's deterministic date-math tests without starting a browser.
+`npm test` runs the calculator and story tests without starting a browser.
 
 ## Deployment
 

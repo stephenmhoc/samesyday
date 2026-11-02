@@ -4,154 +4,86 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Samesy Day</title>
-    <meta name="description" content="Find the next day you and your cat or dog are the same age in pet-human years.">
-    <meta name="theme-color" content="#fffffa">
+    <meta name="description" content="Find out when your dog or cat becomes older than you.">
+    <meta name="theme-color" content="#ff7a45">
     <meta property="og:title" content="Samesy Day">
-    <meta property="og:description" content="A tiny calculator for the next day you and your pet are the same age.">
+    <meta property="og:description" content="The day your pet becomes older than you.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://samesyday.merimerimeri.com/">
     <meta property="og:image" content="https://samesyday.merimerimeri.com/assets/social-card.png">
-    <meta property="og:image:alt" content="Samesy Day, a pet-human age calculator.">
+    <meta property="og:image:alt" content="Samesy Day: the day your pet becomes older than you.">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Samesy Day">
-    <meta name="twitter:description" content="Find the next day you and your pet are the same age.">
+    <meta name="twitter:description" content="The day your pet becomes older than you.">
     <meta name="twitter:image" content="https://samesyday.merimerimeri.com/assets/social-card.png">
-    <meta name="twitter:image:alt" content="Samesy Day, a pet-human age calculator.">
+    <meta name="twitter:image:alt" content="Samesy Day: the day your pet becomes older than you.">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@500;650;750;850;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/styles.css?v=20260808-experience-fixes">
-    <script type="module" src="assets/app.20260808.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/styles.css?v=20261101-older-than-you">
+    <script type="module" src="assets/app.20261101.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#calculator-section">Skip to calculator</a>
-    <div class="page-shell">
-      <main id="main-content">
-        <section class="hero" aria-labelledby="page-title">
-          <h1 id="page-title" class="hero-title">Samesy Day</h1>
-          <p class="hero-copy">
-            Find the next day you and your cat or dog are the same age, using lived days and a pet-human aging curve instead of matching calendar birthdays.
-          </p>
+    <div class="page">
+      <header class="masthead">
+        <h1>Samesy Day</h1>
+        <p>The day your pet becomes older than you.</p>
+      </header>
+
+      <main>
+        <form id="pet-form" class="sentence" autocomplete="off">
+          <span>My</span>
+          <label>
+            <span class="sr-only">Kind of pet</span>
+            <select id="species" name="species">
+              <option value="dog">dog</option>
+              <option value="cat">cat</option>
+            </select>
+          </label>
+          <label>
+            <span class="sr-only">Pet's name</span>
+            <input id="pet-name" class="name-input" name="petName" type="text" placeholder="name" maxlength="24">
+          </label>
+          <span id="age-prefix">is about</span>
+          <label>
+            <span class="sr-only">Pet's age in years</span>
+            <input id="pet-age" class="age-input" name="petAge" type="number" inputmode="decimal" min="0" max="40" step="0.5" value="3">
+          </label>
+          <span>and I'm</span>
+          <label>
+            <span class="sr-only">Your age in years</span>
+            <input id="human-age" class="age-input" name="humanAge" type="number" inputmode="numeric" min="1" max="120" step="1" value="34">
+          </label>
+          <span id="gone-fields" hidden>
+            <span>They died in</span>
+            <label>
+              <span class="sr-only">Year your pet died</span>
+              <input id="gone-year" class="year-input" name="goneYear" type="number" inputmode="numeric" min="1950" step="1" placeholder="year">
+            </label>
+          </span>
+        </form>
+
+        <section class="result" aria-live="polite" aria-atomic="true">
+          <h2 id="headline"></h2>
+          <p id="detail"></p>
         </section>
 
-        <section id="calculator-section" class="calculator" aria-labelledby="calculator-title" tabindex="-1">
-          <h2 id="calculator-title" class="sr-only">Samesy Day calculator</h2>
-          <form id="samesy-form" novalidate aria-describedby="form-error">
-            <div class="sentence-form">
-              <span class="sentence-text my-text">My</span>
-              <label class="field-group compact pet-field">
-                <span class="field-label">Pet</span>
-                <select id="pet-type" class="sentence-control" name="petType" autocomplete="off">
-                  <option value="dog">dog</option>
-                  <option value="cat">cat</option>
-                </select>
-              </label>
-              <span id="dog-details" class="dog-details">
-                <label class="field-group breed-field">
-                  <span class="field-label">Dog breed</span>
-                  <input id="dog-breed" class="sentence-control" name="dogBreed" type="text" list="dog-breed-options" placeholder="e.g. Golden Retriever…" maxlength="80" required autocomplete="off">
-                  <datalist id="dog-breed-options">
-                    <option value="Australian Shepherd"></option>
-                    <option value="Beagle"></option>
-                    <option value="Bernese Mountain Dog"></option>
-                    <option value="Border Collie"></option>
-                    <option value="Boxer"></option>
-                    <option value="Bulldog"></option>
-                    <option value="Chihuahua"></option>
-                    <option value="Cocker Spaniel"></option>
-                    <option value="Dachshund"></option>
-                    <option value="French Bulldog"></option>
-                    <option value="German Shepherd"></option>
-                    <option value="Golden Retriever"></option>
-                    <option value="Great Dane"></option>
-                    <option value="Irish Wolfhound"></option>
-                    <option value="Labrador Retriever"></option>
-                    <option value="Mastiff"></option>
-                    <option value="Mixed Breed"></option>
-                    <option value="Newfoundland"></option>
-                    <option value="Pomeranian"></option>
-                    <option value="Poodle"></option>
-                    <option value="Shih Tzu"></option>
-                    <option value="Yorkshire Terrier"></option>
-                  </datalist>
-                </label>
-              </span>
-              <span class="sentence-text born-text">was born on</span>
-              <label class="field-group date-field pet-date-field">
-                <span class="field-label">Pet birthday</span>
-                <input id="pet-birthday" class="sentence-control" name="petBirthday" type="date" required autocomplete="off">
-              </label>
-              <span class="sentence-break" aria-hidden="true"></span>
-              <span class="sentence-text human-born-text">and I was born on</span>
-              <label class="field-group date-field human-date-field">
-                <span class="field-label">Your birthday</span>
-                <input id="human-birthday" class="sentence-control" name="humanBirthday" type="date" required autocomplete="bday">
-              </label>
-            </div>
-
-            <button class="primary-button" type="submit">When is our Samesy Day?</button>
-            <p class="form-note">Calculated in your browser. Your dates aren't sent or saved.</p>
-            <p id="form-error" class="error-text" role="alert" aria-live="assertive"></p>
-          </form>
-
-          <section id="answer-panel" class="answer-panel is-hidden" aria-live="polite" aria-atomic="false" aria-labelledby="answer-label answer-date" tabindex="-1">
-            <div>
-              <p id="answer-label" class="answer-label">Your Samesy Day</p>
-              <h2 id="answer-date" class="answer-date"></h2>
-              <p id="answer-copy" class="answer-subcopy"></p>
-              <dl class="stats-grid" aria-label="Age comparison">
-                <div class="stat-box">
-                  <dt class="stat-label">Your age</dt>
-                  <dd id="human-age-stat" class="stat-value"></dd>
-                </div>
-                <div class="stat-box">
-                  <dt class="stat-label">Pet-human age</dt>
-                  <dd id="pet-age-stat" class="stat-value"></dd>
-                </div>
-              </dl>
-              <details id="calculation-details" class="calculation-details">
-                <summary>Show the exact math</summary>
-                <div id="calculation-breakdown" class="calculation-breakdown"></div>
-              </details>
-            </div>
-            <div class="chart-wrap">
-              <canvas id="age-chart" width="720" height="420" role="img" aria-label="Line chart showing person days and pet-human days crossing" aria-describedby="chart-summary"></canvas>
-              <p id="chart-summary" class="sr-only">Submit the form to draw an age comparison chart.</p>
-            </div>
-          </section>
-        </section>
-
-        <section class="explanation" aria-labelledby="explanation-title">
-          <div>
-            <h2 id="explanation-title" class="section-heading">How the math works</h2>
-          </div>
-          <div class="explanation-copy">
-            <p>
-              Samesy Day converts each birthday into days lived. For you, one lived day counts as one human day. For pets, each lived day moves through a human-equivalent aging curve, then the site searches forward until those two day totals meet.
-            </p>
-            <ul class="formula-list">
-              <li class="formula-item">
-                <strong>Dogs</strong>
-                <span>Most people know the 7-to-1 shortcut. Samesy Day stays close to it, with a small puppy-years bump and a breed-size nudge: small dogs a bit slower, large dogs a bit faster.</span>
-              </li>
-              <li class="formula-item">
-                <strong>Cats</strong>
-                <span>A common rough conversion for cats is 1 cat year is about 15 human years, 2 cat years is about 24 human years, then each additional cat year adds about 4 human years.</span>
-              </li>
-              <li class="formula-item">
-                <strong>Dates</strong>
-                <span>The answer is the first calendar day when your pet's modeled age catches your actual days lived.</span>
-              </li>
-            </ul>
-          </div>
-        </section>
+        <div id="actions" class="actions">
+          <button id="share-button" type="button">Share the card</button>
+          <button id="calendar-button" type="button">Put it on my calendar</button>
+        </div>
       </main>
 
-      <footer class="site-footer">
-        Made with ❤️ by <a href="https://merimerimeri.com/">MeriMeriMeri Software</a>
+      <footer>
+        <p>Based on the usual 7-to-1 folklore, not science. What you type stays in your browser.</p>
+        <p>
+          <button id="gone-toggle" class="quiet" type="button" aria-expanded="false" aria-controls="gone-fields">If your pet has died</button>
+          <span aria-hidden="true">·</span>
+          Made by <a href="https://merimerimeri.com/">MeriMeriMeri Software</a>
+        </p>
       </footer>
     </div>
   </body>

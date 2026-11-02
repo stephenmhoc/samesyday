@@ -1,7 +1,7 @@
 import { buildCalendarFile, buildStory } from "./story.20261102.js";
 
 const THEMES = {
-  blank: { background: "#f6efe0", ink: "#1b1712" },
+  blank: { background: "#ff7a45", ink: "#1b1712" },
   before: { background: "#ff7a45", ink: "#1b1712" },
   now: { background: "#ffc93c", ink: "#1b1712" },
   passed: { background: "#2437c8", ink: "#fff8ea" },

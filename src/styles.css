@@ -7,7 +7,7 @@
   color-scheme: light;
 }
 
-:root[data-state="blank"] { --background: #f6efe0; }
+:root[data-state="blank"] { --background: #ff7a45; }
 :root[data-state="before"] { --background: #ff7a45; }
 :root[data-state="now"] { --background: #ffc93c; }
 :root[data-state="passed"] { --background: #2437c8; --ink: #fff8ea; }
